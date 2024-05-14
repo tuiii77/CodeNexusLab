@@ -1,14 +1,11 @@
-function wordBreak(s, wordDict) {
-  const set = new Set(wordDict);
-  const dp = new Array(s.length + 1).fill(false);
-  dp[0] = true;
-  for (let end = 1; end <= s.length; end++) {
-    for (let start = 0; start < end; start++) {
-      if (dp[start] && set.has(s.substring(start, end))) {
-        dp[end] = true;
-        break;
-      }
+function generate(numRows) {
+  const triangle = [];
+  for (let i = 0; i < numRows; i++) {
+    const row = new Array(i + 1).fill(1);
+    for (let j = 1; j < row.length - 1; j++) {
+      row[j] = triangle[i - 1][j - 1] + triangle[i - 1][j];
     }
+    triangle.push(row);
   }
-  return dp[s.length];
+  return triangle;
 }
